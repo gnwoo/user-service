@@ -653,8 +653,8 @@ public final class AuthProto {
 
   }
 
-  public interface CredientialResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:CredientialResponse)
+  public interface CredentialResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:CredentialResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -688,18 +688,18 @@ public final class AuthProto {
         getJWTBytes();
   }
   /**
-   * Protobuf type {@code CredientialResponse}
+   * Protobuf type {@code CredentialResponse}
    */
-  public static final class CredientialResponse extends
+  public static final class CredentialResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:CredientialResponse)
-      CredientialResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:CredentialResponse)
+      CredentialResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use CredientialResponse.newBuilder() to construct.
-    private CredientialResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use CredentialResponse.newBuilder() to construct.
+    private CredentialResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private CredientialResponse() {
+    private CredentialResponse() {
       feedback_ = "";
       jWT_ = "";
     }
@@ -708,7 +708,7 @@ public final class AuthProto {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new CredientialResponse();
+      return new CredentialResponse();
     }
 
     @java.lang.Override
@@ -716,7 +716,7 @@ public final class AuthProto {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private CredientialResponse(
+    private CredentialResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -772,15 +772,15 @@ public final class AuthProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredientialResponse_descriptor;
+      return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredentialResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredientialResponse_fieldAccessorTable
+      return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredentialResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.class, com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.Builder.class);
+              com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.class, com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.Builder.class);
     }
 
     public static final int DECISION_FIELD_NUMBER = 1;
@@ -922,10 +922,10 @@ public final class AuthProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse)) {
+      if (!(obj instanceof com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse)) {
         return super.equals(obj);
       }
-      com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse other = (com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse) obj;
+      com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse other = (com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse) obj;
 
       if (getDecision()
           != other.getDecision()) return false;
@@ -956,69 +956,69 @@ public final class AuthProto {
       return hash;
     }
 
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(byte[] data)
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(java.io.InputStream input)
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseDelimitedFrom(java.io.InputStream input)
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseDelimitedFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parseFrom(
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1031,7 +1031,7 @@ public final class AuthProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse prototype) {
+    public static Builder newBuilder(com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -1047,26 +1047,26 @@ public final class AuthProto {
       return builder;
     }
     /**
-     * Protobuf type {@code CredientialResponse}
+     * Protobuf type {@code CredentialResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:CredientialResponse)
-        com.gnwoo.userservice.authRPC.AuthProto.CredientialResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:CredentialResponse)
+        com.gnwoo.userservice.authRPC.AuthProto.CredentialResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredientialResponse_descriptor;
+        return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredentialResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredientialResponse_fieldAccessorTable
+        return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredentialResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.class, com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.Builder.class);
+                com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.class, com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.Builder.class);
       }
 
-      // Construct using com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.newBuilder()
+      // Construct using com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1096,17 +1096,17 @@ public final class AuthProto {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredientialResponse_descriptor;
+        return com.gnwoo.userservice.authRPC.AuthProto.internal_static_CredentialResponse_descriptor;
       }
 
       @java.lang.Override
-      public com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse getDefaultInstanceForType() {
-        return com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.getDefaultInstance();
+      public com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse getDefaultInstanceForType() {
+        return com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse build() {
-        com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse result = buildPartial();
+      public com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse build() {
+        com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1114,8 +1114,8 @@ public final class AuthProto {
       }
 
       @java.lang.Override
-      public com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse buildPartial() {
-        com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse result = new com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse(this);
+      public com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse buildPartial() {
+        com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse result = new com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse(this);
         result.decision_ = decision_;
         result.feedback_ = feedback_;
         result.jWT_ = jWT_;
@@ -1157,16 +1157,16 @@ public final class AuthProto {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse) {
-          return mergeFrom((com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse)other);
+        if (other instanceof com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse) {
+          return mergeFrom((com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse other) {
-        if (other == com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse other) {
+        if (other == com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.getDefaultInstance()) return this;
         if (other.getDecision() != false) {
           setDecision(other.getDecision());
         }
@@ -1193,11 +1193,11 @@ public final class AuthProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse parsedMessage = null;
+        com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse) e.getUnfinishedMessage();
+          parsedMessage = (com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1402,41 +1402,41 @@ public final class AuthProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:CredientialResponse)
+      // @@protoc_insertion_point(builder_scope:CredentialResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:CredientialResponse)
-    private static final com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:CredentialResponse)
+    private static final com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse();
+      DEFAULT_INSTANCE = new com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse();
     }
 
-    public static com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse getDefaultInstance() {
+    public static com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<CredientialResponse>
-        PARSER = new com.google.protobuf.AbstractParser<CredientialResponse>() {
+    private static final com.google.protobuf.Parser<CredentialResponse>
+        PARSER = new com.google.protobuf.AbstractParser<CredentialResponse>() {
       @java.lang.Override
-      public CredientialResponse parsePartialFrom(
+      public CredentialResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new CredientialResponse(input, extensionRegistry);
+        return new CredentialResponse(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<CredientialResponse> parser() {
+    public static com.google.protobuf.Parser<CredentialResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<CredientialResponse> getParserForType() {
+    public com.google.protobuf.Parser<CredentialResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse getDefaultInstanceForType() {
+    public com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4012,10 +4012,10 @@ public final class AuthProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_GeneralResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_CredientialResponse_descriptor;
+    internal_static_CredentialResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_CredientialResponse_fieldAccessorTable;
+      internal_static_CredentialResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_PasswordRequest_descriptor;
   private static final 
@@ -4046,23 +4046,23 @@ public final class AuthProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\nauth.proto\"5\n\017GeneralResponse\022\020\n\010decis" +
-      "ion\030\001 \001(\010\022\020\n\010feedback\030\002 \001(\t\"F\n\023Credienti" +
-      "alResponse\022\020\n\010decision\030\001 \001(\010\022\020\n\010feedback" +
-      "\030\002 \001(\t\022\013\n\003JWT\030\003 \001(\t\"1\n\017PasswordRequest\022\014" +
-      "\n\004uuid\030\001 \001(\003\022\020\n\010password\030\002 \001(\t\"\031\n\nJWTReq" +
-      "uest\022\013\n\003JWT\030\001 \001(\t\"1\n\017PasscodeRequest\022\014\n\004" +
-      "uuid\030\001 \001(\003\022\020\n\010password\030\002 \001(\t\"*\n\013AuthRequ" +
-      "est\022\013\n\003JWT\030\001 \001(\t\022\016\n\006action\030\002 \001(\t2\273\002\n\013Aut" +
-      "hService\022.\n\006SignUp\022\020.PasswordRequest\032\020.G" +
-      "eneralResponse\"\000\0221\n\005Login\022\020.PasswordRequ" +
-      "est\032\024.CredientialResponse\"\000\022)\n\006Logout\022\013." +
-      "JWTRequest\032\020.GeneralResponse\"\000\0223\n\020Logout" +
-      "Everywhere\022\013.JWTRequest\032\020.GeneralRespons" +
-      "e\"\000\022:\n\016ChangePassword\022\020.PasscodeRequest\032" +
-      "\024.CredientialResponse\"\000\022-\n\tCheckAuth\022\014.A" +
-      "uthRequest\032\020.GeneralResponse\"\000B,\n\035com.gn" +
-      "woo.userservice.authRPCB\tAuthProtoP\000b\006pr" +
-      "oto3"
+      "ion\030\001 \001(\010\022\020\n\010feedback\030\002 \001(\t\"E\n\022Credentia" +
+      "lResponse\022\020\n\010decision\030\001 \001(\010\022\020\n\010feedback\030" +
+      "\002 \001(\t\022\013\n\003JWT\030\003 \001(\t\"1\n\017PasswordRequest\022\014\n" +
+      "\004uuid\030\001 \001(\003\022\020\n\010password\030\002 \001(\t\"\031\n\nJWTRequ" +
+      "est\022\013\n\003JWT\030\001 \001(\t\"1\n\017PasscodeRequest\022\014\n\004u" +
+      "uid\030\001 \001(\003\022\020\n\010password\030\002 \001(\t\"*\n\013AuthReque" +
+      "st\022\013\n\003JWT\030\001 \001(\t\022\016\n\006action\030\002 \001(\t2\271\002\n\013Auth" +
+      "Service\022.\n\006SignUp\022\020.PasswordRequest\032\020.Ge" +
+      "neralResponse\"\000\0220\n\005Login\022\020.PasswordReque" +
+      "st\032\023.CredentialResponse\"\000\022)\n\006Logout\022\013.JW" +
+      "TRequest\032\020.GeneralResponse\"\000\0223\n\020LogoutEv" +
+      "erywhere\022\013.JWTRequest\032\020.GeneralResponse\"" +
+      "\000\0229\n\016ChangePassword\022\020.PasscodeRequest\032\023." +
+      "CredentialResponse\"\000\022-\n\tCheckAuth\022\014.Auth" +
+      "Request\032\020.GeneralResponse\"\000B,\n\035com.gnwoo" +
+      ".userservice.authRPCB\tAuthProtoP\000b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4074,11 +4074,11 @@ public final class AuthProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GeneralResponse_descriptor,
         new java.lang.String[] { "Decision", "Feedback", });
-    internal_static_CredientialResponse_descriptor =
+    internal_static_CredentialResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_CredientialResponse_fieldAccessorTable = new
+    internal_static_CredentialResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_CredientialResponse_descriptor,
+        internal_static_CredentialResponse_descriptor,
         new java.lang.String[] { "Decision", "Feedback", "JWT", });
     internal_static_PasswordRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);

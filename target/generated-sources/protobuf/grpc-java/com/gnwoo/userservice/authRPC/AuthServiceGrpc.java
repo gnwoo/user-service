@@ -59,28 +59,28 @@ public final class AuthServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest,
-      com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> getLoginMethod;
+      com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> getLoginMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "Login",
       requestType = com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest.class,
-      responseType = com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.class,
+      responseType = com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest,
-      com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> getLoginMethod() {
-    io.grpc.MethodDescriptor<com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest, com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> getLoginMethod;
+      com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> getLoginMethod() {
+    io.grpc.MethodDescriptor<com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest, com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> getLoginMethod;
     if ((getLoginMethod = AuthServiceGrpc.getLoginMethod) == null) {
       synchronized (AuthServiceGrpc.class) {
         if ((getLoginMethod = AuthServiceGrpc.getLoginMethod) == null) {
           AuthServiceGrpc.getLoginMethod = getLoginMethod =
-              io.grpc.MethodDescriptor.<com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest, com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest, com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Login"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.getDefaultInstance()))
+                  com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.getDefaultInstance()))
               .setSchemaDescriptor(new AuthServiceMethodDescriptorSupplier("Login"))
               .build();
         }
@@ -152,28 +152,28 @@ public final class AuthServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest,
-      com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> getChangePasswordMethod;
+      com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> getChangePasswordMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "ChangePassword",
       requestType = com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest.class,
-      responseType = com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.class,
+      responseType = com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest,
-      com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> getChangePasswordMethod() {
-    io.grpc.MethodDescriptor<com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest, com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> getChangePasswordMethod;
+      com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> getChangePasswordMethod() {
+    io.grpc.MethodDescriptor<com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest, com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> getChangePasswordMethod;
     if ((getChangePasswordMethod = AuthServiceGrpc.getChangePasswordMethod) == null) {
       synchronized (AuthServiceGrpc.class) {
         if ((getChangePasswordMethod = AuthServiceGrpc.getChangePasswordMethod) == null) {
           AuthServiceGrpc.getChangePasswordMethod = getChangePasswordMethod =
-              io.grpc.MethodDescriptor.<com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest, com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest, com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ChangePassword"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse.getDefaultInstance()))
+                  com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse.getDefaultInstance()))
               .setSchemaDescriptor(new AuthServiceMethodDescriptorSupplier("ChangePassword"))
               .build();
         }
@@ -271,7 +271,7 @@ public final class AuthServiceGrpc {
     /**
      */
     public void login(com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest request,
-        io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getLoginMethod(), responseObserver);
     }
 
@@ -292,7 +292,7 @@ public final class AuthServiceGrpc {
     /**
      */
     public void changePassword(com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest request,
-        io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getChangePasswordMethod(), responseObserver);
     }
 
@@ -317,7 +317,7 @@ public final class AuthServiceGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest,
-                com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse>(
+                com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse>(
                   this, METHODID_LOGIN)))
           .addMethod(
             getLogoutMethod(),
@@ -338,7 +338,7 @@ public final class AuthServiceGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest,
-                com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse>(
+                com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse>(
                   this, METHODID_CHANGE_PASSWORD)))
           .addMethod(
             getCheckAuthMethod(),
@@ -376,7 +376,7 @@ public final class AuthServiceGrpc {
     /**
      */
     public void login(com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest request,
-        io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getLoginMethod(), getCallOptions()), request, responseObserver);
     }
@@ -400,7 +400,7 @@ public final class AuthServiceGrpc {
     /**
      */
     public void changePassword(com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest request,
-        io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getChangePasswordMethod(), getCallOptions()), request, responseObserver);
     }
@@ -437,7 +437,7 @@ public final class AuthServiceGrpc {
 
     /**
      */
-    public com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse login(com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest request) {
+    public com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse login(com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest request) {
       return blockingUnaryCall(
           getChannel(), getLoginMethod(), getCallOptions(), request);
     }
@@ -458,7 +458,7 @@ public final class AuthServiceGrpc {
 
     /**
      */
-    public com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse changePassword(com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest request) {
+    public com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse changePassword(com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest request) {
       return blockingUnaryCall(
           getChannel(), getChangePasswordMethod(), getCallOptions(), request);
     }
@@ -495,7 +495,7 @@ public final class AuthServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> login(
+    public com.google.common.util.concurrent.ListenableFuture<com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> login(
         com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getLoginMethod(), getCallOptions()), request);
@@ -519,7 +519,7 @@ public final class AuthServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse> changePassword(
+    public com.google.common.util.concurrent.ListenableFuture<com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse> changePassword(
         com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getChangePasswordMethod(), getCallOptions()), request);
@@ -564,7 +564,7 @@ public final class AuthServiceGrpc {
           break;
         case METHODID_LOGIN:
           serviceImpl.login((com.gnwoo.userservice.authRPC.AuthProto.PasswordRequest) request,
-              (io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse>) responseObserver);
           break;
         case METHODID_LOGOUT:
           serviceImpl.logout((com.gnwoo.userservice.authRPC.AuthProto.JWTRequest) request,
@@ -576,7 +576,7 @@ public final class AuthServiceGrpc {
           break;
         case METHODID_CHANGE_PASSWORD:
           serviceImpl.changePassword((com.gnwoo.userservice.authRPC.AuthProto.PasscodeRequest) request,
-              (io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredientialResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.gnwoo.userservice.authRPC.AuthProto.CredentialResponse>) responseObserver);
           break;
         case METHODID_CHECK_AUTH:
           serviceImpl.checkAuth((com.gnwoo.userservice.authRPC.AuthProto.AuthRequest) request,

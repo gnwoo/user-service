@@ -44,7 +44,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
     @Override
     public void login(AuthProto.PasswordRequest request,
-                      StreamObserver<AuthProto.CredientialResponse> responseObserver) {
+                      StreamObserver<AuthProto.CredentialResponse> responseObserver) {
         // get uuid and password from request
         Long uuid = request.getUuid();
         String password = request.getPassword();
@@ -56,7 +56,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
         if(relations.isEmpty())
         {
             String feedback = "uuid: " + uuid + " does not exit";
-            responseObserver.onNext(AuthProto.CredientialResponse.newBuilder()
+            responseObserver.onNext(AuthProto.CredentialResponse.newBuilder()
                                                                  .setDecision(false).setFeedback(feedback).build());
             responseObserver.onCompleted();
         }
@@ -73,14 +73,14 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
             // response true with JWT_token to user_service
             String feedback = "uuid: " + uuid + " login success";
-            responseObserver.onNext(AuthProto.CredientialResponse.newBuilder()
+            responseObserver.onNext(AuthProto.CredentialResponse.newBuilder()
                                                                  .setDecision(true)
                                                                  .setFeedback(feedback).setJWT(JWT_token).build());
             responseObserver.onCompleted();
         }
         // otherwise, invalid login
         String feedback = "uuid: " + uuid + " invalid uuid or password";
-        responseObserver.onNext(AuthProto.CredientialResponse.newBuilder().setDecision(false).setFeedback(feedback).build());
+        responseObserver.onNext(AuthProto.CredentialResponse.newBuilder().setDecision(false).setFeedback(feedback).build());
         responseObserver.onCompleted();
     }
 
@@ -95,7 +95,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     }
 
     @Override
-    public void changePassword(AuthProto.PasscodeRequest request, StreamObserver<AuthProto.CredientialResponse> responseObserver) {
+    public void changePassword(AuthProto.PasscodeRequest request, StreamObserver<AuthProto.CredentialResponse> responseObserver) {
         super.changePassword(request, responseObserver);
     }
 
