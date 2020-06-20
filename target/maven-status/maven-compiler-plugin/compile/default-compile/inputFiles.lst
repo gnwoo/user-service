@@ -1,0 +1,8 @@
+/Users/northgarrison/OneDrive/C-Development/GNW/auth-service/src/main/java/com/gnwoo/authservice/data/dto/AuthDTO.java
+/Users/northgarrison/OneDrive/C-Development/GNW/auth-service/src/main/java/com/gnwoo/authservice/TestController.java
+/Users/northgarrison/OneDrive/C-Development/GNW/auth-service/target/generated-sources/protobuf/grpc-java/com/gnwoo/userservice/authRPC/AuthServiceGrpc.java
+/Users/northgarrison/OneDrive/C-Development/GNW/auth-service/src/main/java/com/gnwoo/authservice/AuthServiceApplication.java
+/Users/northgarrison/OneDrive/C-Development/GNW/auth-service/src/main/java/com/gnwoo/authservice/data/table/Auth.java
+/Users/northgarrison/OneDrive/C-Development/GNW/auth-service/target/generated-sources/protobuf/java/com/gnwoo/userservice/authRPC/AuthProto.java
+/Users/northgarrison/OneDrive/C-Development/GNW/auth-service/src/main/java/com/gnwoo/authservice/data/repo/AuthRepo.java
+/Users/northgarrison/OneDrive/C-Development/GNW/auth-service/src/main/java/com/gnwoo/authservice/handlers/JWTHandler.java
