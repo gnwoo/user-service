@@ -38,7 +38,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
         // response true to user service
         String feedback = "uuid: " + uuid + "'s password hashed and saved";
-        responseObserver.onNext(AuthProto.GeneralResponse.newBuilder().setDecision(true).setFeedback(feedback).build());
+        responseObserver.onNext(constructGeneralResponse(true, feedback));
         responseObserver.onCompleted();
     }
 
@@ -56,8 +56,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
         if(relations.isEmpty())
         {
             String feedback = "uuid: " + uuid + " does not exit";
-            responseObserver.onNext(AuthProto.CredentialResponse.newBuilder()
-                                                                 .setDecision(false).setFeedback(feedback).build());
+            responseObserver.onNext(constructCredentialResponse(false, feedback, ""));
             responseObserver.onCompleted();
         }
 
@@ -73,14 +72,12 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
 
             // response true with JWT_token to user_service
             String feedback = "uuid: " + uuid + " login success";
-            responseObserver.onNext(AuthProto.CredentialResponse.newBuilder()
-                                                                 .setDecision(true)
-                                                                 .setFeedback(feedback).setJWT(JWT_token).build());
+            responseObserver.onNext(constructCredentialResponse(true, feedback, JWT_token));
             responseObserver.onCompleted();
         }
         // otherwise, invalid login
         String feedback = "uuid: " + uuid + " invalid uuid or password";
-        responseObserver.onNext(AuthProto.CredentialResponse.newBuilder().setDecision(false).setFeedback(feedback).build());
+        responseObserver.onNext(constructCredentialResponse(false, feedback, ""));
         responseObserver.onCompleted();
     }
 
@@ -102,5 +99,20 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     @Override
     public void checkAuth(AuthProto.AuthRequest request, StreamObserver<AuthProto.GeneralResponse> responseObserver) {
         super.checkAuth(request, responseObserver);
+    }
+
+    private AuthProto.GeneralResponse constructGeneralResponse(boolean decision, String feedback)
+    {
+        return AuthProto.GeneralResponse.newBuilder()
+                                        .setDecision(decision).setFeedback(feedback)
+                                        .build();
+    }
+
+    private AuthProto.CredentialResponse constructCredentialResponse(boolean decision, String feedback,
+                                                                     String JWT_token)
+    {
+        return AuthProto.CredentialResponse.newBuilder()
+                                           .setDecision(decision).setFeedback(feedback).setJWT(JWT_token)
+                                           .build();
     }
 }
