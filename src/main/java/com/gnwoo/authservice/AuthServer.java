@@ -2,13 +2,20 @@ package com.gnwoo.authservice;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class AuthServer {
     private Server server;
     private static final int port = 8081;
+
+    @Autowired
+    private AuthServiceImpl authService;
 
     // main entry (should use spring convention)
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -17,8 +24,8 @@ public class AuthServer {
         server.blockUntilShutdown(); // graceful shut down
     }
 
-    private void start() throws IOException {
-        server = ServerBuilder.forPort(port).addService(new AuthServiceImpl()).build().start(); // loading service
+    public void start() throws IOException {
+        server = ServerBuilder.forPort(port).addService(this.authService).build().start(); // loading service
         System.out.println("server started");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> { // adding termination hook
             try {
@@ -38,7 +45,7 @@ public class AuthServer {
     /**
      * Await termination on the main thread since the grpc library uses daemon threads.
      */
-    private void blockUntilShutdown() throws InterruptedException {
+    public void blockUntilShutdown() throws InterruptedException {
         if (server != null) {
             server.awaitTermination();
         }
