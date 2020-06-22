@@ -12,7 +12,6 @@ public class AppRuner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("我自定义的ApplicationRunner事件。。。。。。");
         server.start();
         server.blockUntilShutdown(); // graceful shut down
     }

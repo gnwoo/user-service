@@ -4,31 +4,41 @@ import javax.persistence.*;
 
 @Entity
 public class Auth {
-    @Id
+    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long uuid;
+    @Column(unique = true, nullable = false)
+    private String username;
     @Column(nullable = false)
-    private String hashedPassword;
+    private String displayName;
+    @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
+    private String hashed_password;
 
     public Auth() { }
 
-    public Auth(Long uuid, String hashedPassword) {
-        this.uuid = uuid;
-        this.hashedPassword = hashedPassword;
+    public Auth(String username, String displayName, String email, String hashed_password) {
+        this.username = username;
+        this.displayName = displayName;
+        this.email = email;
+        this.hashed_password = hashed_password;
     }
 
-    public Long getUuid() {
-        return uuid;
-    }
+    public Long getUuid() { return uuid; }
 
-    public String getHashedPassword() {
-        return hashedPassword;
-    }
+    public String getUsername() { return username; }
 
-    public void setUuid(Long uuid) {
-        this.uuid = uuid;
-    }
+    public void setUsername(String username) { this.username = username; }
 
-    public void setHashedPassword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
-    }
+    public String getDisplayName() { return displayName; }
+
+    public void setDisplayName(String displayName) { this.displayName = displayName; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public String getHashedPassword() { return hashed_password; }
+
+    public void setHashedPassword(String hashed_password) { this.hashed_password = hashed_password; }
 }

@@ -26,7 +26,8 @@ message JWTRequest {
 
 message PasscodeRequest {
   int64 uuid = 1;
-  string password = 2;
+  string passcode = 2;
+  string newPassword = 3;
 }
 
 message AuthRequest {
@@ -34,11 +35,17 @@ message AuthRequest {
   string action = 2;
 }
 
+message EmailVerificationRequest {
+  int64 uuid = 1;
+  string email = 2;
+}
+
 service AuthService {
   rpc SignUp(PasswordRequest) returns (GeneralResponse) {}
   rpc Login(PasswordRequest) returns (CredentialResponse) {}
   rpc Logout(JWTRequest) returns (GeneralResponse) {}
   rpc LogoutEverywhere(JWTRequest) returns (GeneralResponse) {}
-  rpc ChangePassword(PasscodeRequest) returns (CredentialResponse) {}
+  rpc VerifyByEmailAddress(EmailVerificationRequest) returns (GeneralResponse) {}
+  rpc ChangePassword(PasscodeRequest) returns (GeneralResponse) {}
   rpc CheckAuth(AuthRequest) returns (GeneralResponse) {}
 }

@@ -5,9 +5,11 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class JWTHandler {
     private final String secret = "secret";
     private final Algorithm algorithm = Algorithm.HMAC256(secret);

@@ -7,6 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface AuthRepo extends CrudRepository<Auth, String>{
-    @Query(value = "select hashed_password from auth where uuid=?1", nativeQuery = true)
+    List<Auth> findByUsername(String username);
+
+    @Query(value = "SELECT hashed_password FROM auth WHERE uuid=?1", nativeQuery = true)
     List<String> findHashedPassword(Long uuid);
+
+//    @Query(value = "UPDATE auth SET hashed_password=?2 WHERE uuid=?1", nativeQuery = true)
+//    void updateHashedPassword(Long uuid, String hashed_password);
 }

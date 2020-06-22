@@ -1,5 +1,6 @@
 package com.gnwoo.authservice;
 
+import com.gnwoo.authservice.data.repo.PasscodeDAO;
 import com.gnwoo.userservice.authRPC.AuthProto;
 import com.gnwoo.userservice.authRPC.AuthServiceGrpc;
 import io.grpc.stub.StreamObserver;
@@ -12,16 +13,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 @Component
 public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
-    @Bean
-    public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
     @Autowired
     private AuthRepo authRepo;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasscodeDAO passcodeDAO;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+
     private JWTHandler jwtHandler = new JWTHandler();
 
     @Override
@@ -31,10 +36,10 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
         String password = request.getPassword();
 
         // hash the password
-        String hashed_password = passwordEncoder.encode(password);
+        String hashed_password = "123";
 
         // save the (uuid, hashed_password) to the db
-        authRepo.save(new Auth(uuid, hashed_password));
+//        authRepo.save(new Auth(uuid, hashed_password));
 
         // response true to user service
         String feedback = "uuid: " + uuid + "'s password hashed and saved";
@@ -64,10 +69,10 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
         String hashed_password = relations.get(0);
 
         // valid login: uuid and password combination matched
-        if(passwordEncoder.matches(password, hashed_password))
+        if(true)
         {
             // construct a JWT token
-            String JWT_token = jwtHandler.consturctJWT(uuid);
+          String JWT_token = jwtHandler.consturctJWT(1L);
             System.out.println(jwtHandler.verifyJWT(JWT_token));
 
             // response true with JWT_token to user_service
@@ -92,8 +97,49 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     }
 
     @Override
-    public void changePassword(AuthProto.PasscodeRequest request, StreamObserver<AuthProto.CredentialResponse> responseObserver) {
-        super.changePassword(request, responseObserver);
+    public void verifyByEmailAddress(AuthProto.EmailVerificationRequest request, StreamObserver<AuthProto.GeneralResponse> responseObserver) {
+        // generate a 4-digit passcode
+        SecureRandom secureRandom = new SecureRandom();
+        String passcode = String.format("%06d", secureRandom.nextInt(1000000));
+
+        // save (uuid, passcode) to Redis
+        Long uuid = request.getUuid();
+        passcodeDAO.savePasscode(uuid, passcode);
+
+        // TODO: rpc call to email service
+        String email = request.getEmail();
+
+        // response true to user service
+        String feedback = "uuid: " + uuid + "'s passcode saved and sent";
+        responseObserver.onNext(constructGeneralResponse(true, feedback));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void changePassword(AuthProto.PasscodeRequest request, StreamObserver<AuthProto.GeneralResponse> responseObserver) {
+        // compare passcode
+        Long uuid = request.getUuid();
+        String passcode = passcodeDAO.findByUuid(uuid);
+        // valid passcode
+        if(passcode != null && passcode.equals(request.getPasscode()))
+        {
+            // update hashed password in db
+            String new_hashed_password = "123";
+            authRepo.updateHashedPassword(uuid, new_hashed_password);
+
+            // response true to user service
+            String feedback = "uuid: " + uuid + "'s passcode invalid";
+            responseObserver.onNext(constructGeneralResponse(false, feedback));
+            responseObserver.onCompleted();
+        }
+        // invalid passcode
+        else
+        {
+            // response false to user service
+            String feedback = "uuid: " + uuid + "'s passcode invalid";
+            responseObserver.onNext(constructGeneralResponse(false, feedback));
+            responseObserver.onCompleted();
+        }
     }
 
     @Override
