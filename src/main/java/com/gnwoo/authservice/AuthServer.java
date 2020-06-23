@@ -17,13 +17,6 @@ public class AuthServer {
     @Autowired
     private AuthServiceImpl authService;
 
-    // main entry (should use spring convention)
-    public static void main(String[] args) throws IOException, InterruptedException {
-        final AuthServer server = new AuthServer();
-        server.start();
-        server.blockUntilShutdown(); // graceful shut down
-    }
-
     public void start() throws IOException {
         server = ServerBuilder.forPort(port).addService(this.authService).build().start(); // loading service
         System.out.println("server started");

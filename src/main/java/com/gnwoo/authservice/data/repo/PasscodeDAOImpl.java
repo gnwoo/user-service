@@ -1,6 +1,5 @@
 package com.gnwoo.authservice.data.repo;
 
-import com.gnwoo.authservice.data.repo.PasscodeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;

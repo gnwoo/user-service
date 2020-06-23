@@ -12,6 +12,6 @@ public interface AuthRepo extends CrudRepository<Auth, String>{
     @Query(value = "SELECT hashed_password FROM auth WHERE uuid=?1", nativeQuery = true)
     List<String> findHashedPassword(Long uuid);
 
-//    @Query(value = "UPDATE auth SET hashed_password=?2 WHERE uuid=?1", nativeQuery = true)
-//    void updateHashedPassword(Long uuid, String hashed_password);
+    @Query(value = "UPDATE auth SET hashed_password=?2 WHERE uuid=?1", nativeQuery = true)
+    void updateHashedPassword(Long uuid, String hashed_password);
 }

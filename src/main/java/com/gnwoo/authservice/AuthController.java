@@ -1,7 +1,6 @@
 package com.gnwoo.authservice;
 
 import com.gnwoo.authservice.data.repo.AuthRepo;
-import com.gnwoo.authservice.data.repo.PasscodeDAO;
 import com.gnwoo.authservice.data.repo.PasscodeDAOImpl;
 import com.gnwoo.authservice.data.table.Auth;
 import com.gnwoo.authservice.handlers.JWTHandler;
@@ -16,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.SecureRandom;
