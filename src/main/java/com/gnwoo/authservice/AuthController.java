@@ -2,6 +2,7 @@ package com.gnwoo.authservice;
 
 import com.gnwoo.authservice.data.repo.AuthRepo;
 import com.gnwoo.authservice.data.repo.PasscodeDAO;
+import com.gnwoo.authservice.data.repo.PasscodeDAOImpl;
 import com.gnwoo.authservice.data.table.Auth;
 import com.gnwoo.authservice.handlers.JWTHandler;
 import com.gnwoo.authservice.requestTemplate.ChangePasswordRequest;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.SecureRandom;
@@ -28,13 +30,18 @@ public class AuthController {
     @Autowired
     private AuthRepo authRepo;
     @Autowired
-    private PasscodeDAO passcodeDAO;
+    private PasscodeDAOImpl passcodeDAO;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JWTHandler jwtHandler;
 
-    @PostMapping(path="/signUp")
+    @GetMapping(path="/test")
+    public ResponseEntity<String> test () {
+        return new ResponseEntity<>("test ok ok ok", HttpStatus.OK);
+    }
+
+    @PostMapping(path="/sign-up")
     public ResponseEntity<String> signUp (@RequestBody SignUpRequest req) {
         // check duplicates
         if(!authRepo.findByUsername(req.getUsername()).isEmpty())
@@ -141,12 +148,12 @@ public class AuthController {
     }
 
     // mock auth
-    @GetMapping(path="/authStatus")
-    public ResponseEntity<String> login (@CookieValue String uuid, @CookieValue String JWT) {
-        System.out.println(uuid + " "  + JWT);
-        if(jwtHandler.verifyJWT(JWT))
-            return ResponseEntity.ok().build();
-        else
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-    }
+//    @GetMapping(path="/authStatus")
+//    public ResponseEntity<String> login (@CookieValue String uuid, @CookieValue String JWT) {
+//        System.out.println(uuid + " "  + JWT);
+//        if(jwtHandler.verifyJWT(JWT))
+//            return ResponseEntity.ok().build();
+//        else
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//    }
 }

@@ -1,6 +1,7 @@
 package com.gnwoo.authservice;
 
 import com.gnwoo.authservice.data.repo.PasscodeDAO;
+import com.gnwoo.authservice.data.repo.PasscodeDAOImpl;
 import com.gnwoo.userservice.authRPC.AuthProto;
 import com.gnwoo.userservice.authRPC.AuthServiceGrpc;
 import io.grpc.stub.StreamObserver;
@@ -23,7 +24,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     @Autowired
     private AuthRepo authRepo;
     @Autowired
-    private PasscodeDAO passcodeDAO;
+    private PasscodeDAOImpl passcodeDAO;
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 
@@ -125,7 +126,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
         {
             // update hashed password in db
             String new_hashed_password = "123";
-            authRepo.updateHashedPassword(uuid, new_hashed_password);
+//            authRepo.updateHashedPassword(uuid, new_hashed_password);
 
             // response true to user service
             String feedback = "uuid: " + uuid + "'s passcode invalid";
