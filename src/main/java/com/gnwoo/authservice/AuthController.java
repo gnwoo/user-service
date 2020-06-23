@@ -34,7 +34,7 @@ public class AuthController {
     @Autowired
     private JWTHandler jwtHandler;
 
-    @PostMapping(path="/signUp")
+    @PostMapping(path="/sign-up")
     public ResponseEntity<String> signUp (@RequestBody SignUpRequest req) {
         // check duplicates
         if(!authRepo.findByUsername(req.getUsername()).isEmpty())
@@ -141,7 +141,7 @@ public class AuthController {
     }
 
     // mock auth
-    @GetMapping(path="/authStatus")
+    @GetMapping(path="/auth-status")
     public ResponseEntity<String> login (@CookieValue String uuid, @CookieValue String JWT) {
         System.out.println(uuid + " "  + JWT);
         if(jwtHandler.verifyJWT(JWT))
