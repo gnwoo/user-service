@@ -146,12 +146,12 @@ public class AuthController {
     }
 
     // mock auth
-//    @GetMapping(path="/authStatus")
-//    public ResponseEntity<String> login (@CookieValue String uuid, @CookieValue String JWT) {
-//        System.out.println(uuid + " "  + JWT);
-//        if(jwtHandler.verifyJWT(JWT))
-//            return ResponseEntity.ok().build();
-//        else
-//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//    }
+    @GetMapping(path="/auth-status")
+    public ResponseEntity<String> login (@CookieValue String uuid, @CookieValue String JWT) {
+        System.out.println(uuid + " "  + JWT);
+        if(jwtHandler.verifyJWT(JWT))
+            return ResponseEntity.ok().build();
+        else
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
 }
