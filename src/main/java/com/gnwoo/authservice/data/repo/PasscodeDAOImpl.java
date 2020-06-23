@@ -1,6 +1,5 @@
 package com.gnwoo.authservice.data.repo;
 
-import com.gnwoo.authservice.data.repo.PasscodeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -8,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.concurrent.TimeUnit;
 
 @Repository
-public class PasscodeDAOImpl implements PasscodeDAO {
+public class PasscodeDAOImpl {
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<Long, String> redisTemplate;
 
 //    private static final String KEY = "user";
 
@@ -32,7 +31,7 @@ public class PasscodeDAOImpl implements PasscodeDAO {
     public String findByUuid(Long uuid) {
 //        Map userMap = (Map) redisTemplate.opsForHash().get(KEY, uuid);
 //        User user = new ObjectMapper().convertValue(userMap, User.class);
-        return (String)redisTemplate.opsForValue().get(uuid);
+        return redisTemplate.opsForValue().get(uuid);
     }
 
 }

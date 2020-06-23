@@ -1,7 +1,7 @@
 package com.gnwoo.authservice;
 
 import com.gnwoo.authservice.data.repo.AuthRepo;
-import com.gnwoo.authservice.data.repo.PasscodeDAO;
+import com.gnwoo.authservice.data.repo.PasscodeDAOImpl;
 import com.gnwoo.authservice.data.table.Auth;
 import com.gnwoo.authservice.handlers.JWTHandler;
 import com.gnwoo.authservice.requestTemplate.ChangePasswordRequest;
@@ -28,11 +28,16 @@ public class AuthController {
     @Autowired
     private AuthRepo authRepo;
     @Autowired
-    private PasscodeDAO passcodeDAO;
+    private PasscodeDAOImpl passcodeDAO;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JWTHandler jwtHandler;
+
+    @GetMapping(path="/test")
+    public ResponseEntity<String> test () {
+        return new ResponseEntity<>("test ok ok ok", HttpStatus.OK);
+    }
 
     @PostMapping(path="/sign-up")
     public ResponseEntity<String> signUp (@RequestBody SignUpRequest req) {
