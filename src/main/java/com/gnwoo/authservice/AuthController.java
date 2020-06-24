@@ -1,7 +1,8 @@
 package com.gnwoo.authservice;
 
+import com.gnwoo.authservice.data.dto.AuthDTO;
 import com.gnwoo.authservice.data.repo.AuthRepo;
-import com.gnwoo.authservice.data.repo.PasscodeDAOImpl;
+import com.gnwoo.authservice.data.repo.PasscodeDAO;
 import com.gnwoo.authservice.data.table.Auth;
 import com.gnwoo.authservice.handlers.JWTHandler;
 import com.gnwoo.authservice.requestTemplate.ChangePasswordRequest;
@@ -28,15 +29,15 @@ public class AuthController {
     @Autowired
     private AuthRepo authRepo;
     @Autowired
-    private PasscodeDAOImpl passcodeDAO;
+    private PasscodeDAO passcodeDAO;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private JWTHandler jwtHandler;
 
-    @GetMapping(path="/test")
+    @GetMapping(path="/health")
     public ResponseEntity<String> test () {
-        return new ResponseEntity<>("test ok ok ok", HttpStatus.OK);
+        return ResponseEntity.ok().body("health ok");
     }
 
     @PostMapping(path="/sign-up")
@@ -58,7 +59,7 @@ public class AuthController {
     }
 
     @PostMapping(path="/login")
-    public ResponseEntity<Auth> login (@RequestBody LoginRequest req) {
+    public ResponseEntity<AuthDTO> login (@RequestBody LoginRequest req) {
         // get user from db
         String username = req.getUsername();
         List<Auth> relations = authRepo.findByUsername(username);
@@ -79,12 +80,13 @@ public class AuthController {
             // clean the hashed password
             auth.setHashedPassword("the password has been hashed and salted");
 
-            // response true with JWT_token to user_service
+            // response OK with JWT
             HttpHeaders headers = new HttpHeaders();
             headers.add("Set-Cookie", "JWT=" + JWT_token);
             headers.add("Set-Cookie", "uuid=" + auth.getUuid());
-//                headers.add("Set-Cookie", "HttpOnly");
-            return ResponseEntity.ok().headers(headers).body(auth);
+//            headers.add("Set-Cookie", "HttpOnly");
+            return new ResponseEntity<>(new AuthDTO(auth), headers, HttpStatus.OK);
+//            return ResponseEntity.ok().headers(headers).body(auth);
         }
         // otherwise, invalid login
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

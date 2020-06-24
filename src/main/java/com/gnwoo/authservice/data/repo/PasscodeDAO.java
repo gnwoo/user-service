@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.concurrent.TimeUnit;
 
 @Repository
-public class PasscodeDAOImpl {
+public class PasscodeDAO {
     @Autowired
     RedisTemplate<Long, String> redisTemplate;
 

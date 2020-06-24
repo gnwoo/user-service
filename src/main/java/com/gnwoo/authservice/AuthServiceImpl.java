@@ -1,6 +1,6 @@
 package com.gnwoo.authservice;
 
-import com.gnwoo.authservice.data.repo.PasscodeDAOImpl;
+import com.gnwoo.authservice.data.repo.PasscodeDAO;
 import com.gnwoo.userservice.authRPC.AuthProto;
 import com.gnwoo.userservice.authRPC.AuthServiceGrpc;
 import io.grpc.stub.StreamObserver;
@@ -19,7 +19,7 @@ public class AuthServiceImpl extends AuthServiceGrpc.AuthServiceImplBase {
     @Autowired
     private AuthRepo authRepo;
     @Autowired
-    private PasscodeDAOImpl passcodeDAO;
+    private PasscodeDAO passcodeDAO;
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 
