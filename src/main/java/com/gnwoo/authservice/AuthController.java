@@ -108,6 +108,7 @@ public class AuthController {
         // generate a 4-digit passcode
         SecureRandom secureRandom = new SecureRandom();
         String passcode = String.format("%06d", secureRandom.nextInt(1000000));
+        System.out.println("passcode: " + passcode);
 
         // save (uuid, passcode) to Redis
         passcodeDAO.savePasscode(auth.getUuid(), passcode);
@@ -130,7 +131,8 @@ public class AuthController {
 
         // otherwise, user found
         Auth auth = relations.get(0);
-        String passcode = passcodeDAO.findByUuid(auth.getUuid());
+        Long uuid = auth.getUuid();
+        String passcode = passcodeDAO.findByUuid(uuid);
 
         // valid passcode
         if(passcode != null && passcode.equals(req.getPasscode()))
@@ -140,7 +142,9 @@ public class AuthController {
             auth.setHashedPassword(new_hashed_password);
             authRepo.save(auth);
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Set-Cookie", "uuid=" + uuid);
+            return new ResponseEntity<>("change password ok", headers, HttpStatus.OK);
         }
         // invalid passcode
         else
@@ -148,7 +152,7 @@ public class AuthController {
     }
 
     // dump auth-status
-    @GetMapping(path="/auth-status")
+    @GetMapping(path="/authentication-status")
     public ResponseEntity<String> authStatus () { return new ResponseEntity<>(HttpStatus.OK); }
 
     // dump logout
@@ -156,6 +160,6 @@ public class AuthController {
     public ResponseEntity<String> logout () { return new ResponseEntity<>(HttpStatus.OK); }
 
     // dump logout-everywhere
-    @GetMapping(path="logout")
+    @GetMapping(path="logout-everywhere")
     public ResponseEntity<String> logoutEverywhere () { return new ResponseEntity<>(HttpStatus.OK); }
 }
