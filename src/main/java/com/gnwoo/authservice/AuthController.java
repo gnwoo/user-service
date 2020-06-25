@@ -147,13 +147,15 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
-    // mock auth
+    // dump auth-status
     @GetMapping(path="/auth-status")
-    public ResponseEntity<String> login (@CookieValue String uuid, @CookieValue String JWT) {
-        System.out.println(uuid + " "  + JWT);
-        if(jwtHandler.verifyJWT(JWT))
-            return ResponseEntity.ok().build();
-        else
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-    }
+    public ResponseEntity<String> authStatus () { return new ResponseEntity<>(HttpStatus.OK); }
+
+    // dump logout
+    @GetMapping(path="logout")
+    public ResponseEntity<String> logout () { return new ResponseEntity<>(HttpStatus.OK); }
+
+    // dump logout-everywhere
+    @GetMapping(path="logout")
+    public ResponseEntity<String> logoutEverywhere () { return new ResponseEntity<>(HttpStatus.OK); }
 }
