@@ -1,14 +1,14 @@
-package com.gnwoo.authservice;
+package com.gnwoo.userservice;
 
-import com.gnwoo.authservice.data.dto.AuthDTO;
-import com.gnwoo.authservice.data.repo.AuthRepo;
-import com.gnwoo.authservice.data.repo.PasscodeDAO;
-import com.gnwoo.authservice.data.table.Auth;
-import com.gnwoo.authservice.handlers.JWTHandler;
-import com.gnwoo.authservice.requestTemplate.ChangePasswordRequest;
-import com.gnwoo.authservice.requestTemplate.LoginRequest;
-import com.gnwoo.authservice.requestTemplate.SignUpRequest;
-import com.gnwoo.authservice.requestTemplate.VerifyByEmailAddressRequest;
+import com.gnwoo.userservice.data.dto.UserDTO;
+import com.gnwoo.userservice.data.repo.PasscodeRepo;
+import com.gnwoo.userservice.data.repo.UserRepo;
+import com.gnwoo.userservice.data.table.User;
+import com.gnwoo.userservice.util.JWTUtil;
+import com.gnwoo.userservice.requestTemplate.ChangePasswordRequest;
+import com.gnwoo.userservice.requestTemplate.LoginRequest;
+import com.gnwoo.userservice.requestTemplate.SignUpRequest;
+import com.gnwoo.userservice.requestTemplate.VerifyByEmailAddressRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
@@ -23,17 +23,17 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
-public class AuthController {
+public class UserController {
     @Bean
     public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
     @Autowired
-    private AuthRepo authRepo;
+    private UserRepo userRepo;
     @Autowired
-    private PasscodeDAO passcodeDAO;
+    private PasscodeRepo passcodeRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private JWTHandler jwtHandler;
+    private JWTUtil jwtUtil;
 
     @GetMapping(path="/health")
     public ResponseEntity<String> test () {
@@ -43,7 +43,7 @@ public class AuthController {
     @PostMapping(path="/sign-up")
     public ResponseEntity<String> signUp (@RequestBody SignUpRequest req) {
         // check duplicates
-        if(!authRepo.findByUsername(req.getUsername()).isEmpty())
+        if(!userRepo.findByUsername(req.getUsername()).isEmpty())
             return new ResponseEntity<>(HttpStatus.CONFLICT);
 
         // otherwise, new user
@@ -51,41 +51,41 @@ public class AuthController {
         String hashed_password = passwordEncoder.encode(req.getPassword());
 
         // save the user to the db
-        Auth auth = new Auth(req.getUsername(), req.getDisplayName(), req.getEmail(), hashed_password);
-        authRepo.save(auth);
+        User user = new User(req.getUsername(), req.getDisplayName(), req.getEmail(), hashed_password);
+        userRepo.save(user);
 
         // response true to user service
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(path="/login")
-    public ResponseEntity<AuthDTO> login (@RequestBody LoginRequest req) {
+    public ResponseEntity<UserDTO> login (@RequestBody LoginRequest req) {
         // get user from db
         String username = req.getUsername();
-        List<Auth> relations = authRepo.findByUsername(username);
+        List<User> relations = userRepo.findByUsername(username);
 
         // invalid login: username does not exist
         if(relations.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // otherwise, user found
-        Auth auth = relations.get(0);
+        User user = relations.get(0);
 
         // valid login: username and password combination matched
-        if(passwordEncoder.matches(req.getPassword(), auth.getHashedPassword()))
+        if(passwordEncoder.matches(req.getPassword(), user.getHashedPassword()))
         {
             // construct a JWT token
-            String JWT_token = jwtHandler.consturctJWT(auth.getUuid());
+            String JWT_token = jwtUtil.consturctJWT(user.getUuid());
 
             // clean the hashed password
-            auth.setHashedPassword("the password has been hashed and salted");
+            user.setHashedPassword("the password has been hashed and salted");
 
             // response OK with JWT
             HttpHeaders headers = new HttpHeaders();
             headers.add("Set-Cookie", "JWT=" + JWT_token);
-            headers.add("Set-Cookie", "uuid=" + auth.getUuid());
+            headers.add("Set-Cookie", "uuid=" + user.getUuid());
 //            headers.add("Set-Cookie", "HttpOnly");
-            return new ResponseEntity<>(new AuthDTO(auth), headers, HttpStatus.OK);
+            return new ResponseEntity<>(new UserDTO(user), headers, HttpStatus.OK);
 //            return ResponseEntity.ok().headers(headers).body(auth);
         }
         // otherwise, invalid login
@@ -96,14 +96,14 @@ public class AuthController {
     public ResponseEntity<String> verifyByEmailAddress (@RequestBody VerifyByEmailAddressRequest req) {
         // get user from db
         String username = req.getUsername();
-        List<Auth> relations = authRepo.findByUsername(username);
+        List<User> relations = userRepo.findByUsername(username);
 
         // invalid: username does not exist
         if(relations.isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         // otherwise, user found
-        Auth auth = relations.get(0);
+        User user = relations.get(0);
 
         // generate a 4-digit passcode
         SecureRandom secureRandom = new SecureRandom();
@@ -111,10 +111,10 @@ public class AuthController {
         System.out.println("passcode: " + passcode);
 
         // save (uuid, passcode) to Redis
-        passcodeDAO.savePasscode(auth.getUuid(), passcode);
+        passcodeRepo.savePasscode(user.getUuid(), passcode);
 
         // TODO: rpc call to email service
-        String email = auth.getEmail();
+        String email = user.getEmail();
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -123,24 +123,24 @@ public class AuthController {
     public ResponseEntity<String> changePassword (@RequestBody ChangePasswordRequest req) {
         // get user from db
         String username = req.getUsername();
-        List<Auth> relations = authRepo.findByUsername(username);
+        List<User> relations = userRepo.findByUsername(username);
 
         // invalid: username does not exist
         if(relations.isEmpty())
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // otherwise, user found
-        Auth auth = relations.get(0);
-        Long uuid = auth.getUuid();
-        String passcode = passcodeDAO.findByUuid(uuid);
+        User user = relations.get(0);
+        Long uuid = user.getUuid();
+        String passcode = passcodeRepo.findByUuid(uuid);
 
         // valid passcode
         if(passcode != null && passcode.equals(req.getPasscode()))
         {
             // update hashed password in db
             String new_hashed_password = passwordEncoder.encode(req.getNewPassword());
-            auth.setHashedPassword(new_hashed_password);
-            authRepo.save(auth);
+            user.setHashedPassword(new_hashed_password);
+            userRepo.save(user);
 
             HttpHeaders headers = new HttpHeaders();
             headers.add("Set-Cookie", "uuid=" + uuid);

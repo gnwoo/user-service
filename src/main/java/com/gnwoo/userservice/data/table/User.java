@@ -1,9 +1,9 @@
-package com.gnwoo.authservice.data.table;
+package com.gnwoo.userservice.data.table;
 
 import javax.persistence.*;
 
 @Entity
-public class Auth {
+public class User {
     @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long uuid;
     @Column(unique = true, nullable = false)
@@ -15,9 +15,9 @@ public class Auth {
     @Column(nullable = false)
     private String hashed_password;
 
-    public Auth() { }
+    public User() { }
 
-    public Auth(String username, String displayName, String email, String hashed_password) {
+    public User(String username, String displayName, String email, String hashed_password) {
         this.username = username;
         this.displayName = displayName;
         this.email = email;

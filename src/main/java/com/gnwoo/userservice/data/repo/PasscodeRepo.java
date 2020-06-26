@@ -1,4 +1,4 @@
-package com.gnwoo.authservice.data.repo;
+package com.gnwoo.userservice.data.repo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.concurrent.TimeUnit;
 
 @Repository
-public class PasscodeDAO {
+public class PasscodeRepo {
     @Autowired
     RedisTemplate<Long, String> redisTemplate;
 

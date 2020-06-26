@@ -1,21 +1,20 @@
-package com.gnwoo.authservice.data.dto;
+package com.gnwoo.userservice.data.dto;
 
-import com.gnwoo.authservice.data.table.Auth;
+import com.gnwoo.userservice.data.table.User;
 
-public class AuthDTO {
+public class UserDTO {
     private Long uuid;
     private String username;
     private String display_name;
     private String email;
-    private String JWT_token;
 
-    public AuthDTO() { }
+    public UserDTO() { }
 
-    public AuthDTO(Auth auth) {
-        this.uuid = auth.getUuid();
-        this.username = auth.getUsername();
-        this.display_name = auth.getDisplayName();
-        this.email = auth.getEmail();
+    public UserDTO(User user) {
+        this.uuid = user.getUuid();
+        this.username = user.getUsername();
+        this.display_name = user.getDisplayName();
+        this.email = user.getEmail();
     }
 
     public Long getUuid() { return uuid; }

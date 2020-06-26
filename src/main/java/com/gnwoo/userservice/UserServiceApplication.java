@@ -1,4 +1,4 @@
-package com.gnwoo.authservice;
+package com.gnwoo.userservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,10 +7,10 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableRedisRepositories
-public class AuthServiceApplication {
+public class UserServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthServiceApplication.class, args);
+		SpringApplication.run(UserServiceApplication.class, args);
 	}
 
 }

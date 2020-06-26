@@ -1,4 +1,4 @@
-package com.gnwoo.authservice.handlers;
+package com.gnwoo.userservice.util;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.JWT;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JWTHandler {
+public class JWTUtil {
     private final String secret = "secret";
     private final Algorithm algorithm = Algorithm.HMAC256(secret);
     private final String issuer = "gnw-auth-service";
 
-    public JWTHandler() {}
+    public JWTUtil() {}
 
     public String consturctJWT (Long uuid) {
         String JWT_token;

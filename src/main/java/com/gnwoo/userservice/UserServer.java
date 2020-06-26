@@ -1,28 +1,27 @@
-package com.gnwoo.authservice;
+package com.gnwoo.userservice;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class AuthServer {
+public class UserServer {
     private Server server;
     private static final int port = 8081;
 
     @Autowired
-    private AuthServiceImpl authService;
+    private UserServiceImpl userService;
 
     public void start() throws IOException {
-        server = ServerBuilder.forPort(port).addService(this.authService).build().start(); // loading service
-        System.out.println("server started");
+        server = ServerBuilder.forPort(port).addService(this.userService).build().start(); // loading service
+        System.out.println("User RPC server started");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> { // adding termination hook
             try {
-                AuthServer.this.stop(); // calling stop() to terminate the server
+                UserServer.this.stop(); // calling stop() to terminate the server
             } catch (InterruptedException e) {
                 e.printStackTrace(System.err);
             }
