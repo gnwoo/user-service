@@ -153,7 +153,7 @@ public class AuthController {
 
     // dump auth-status
     @GetMapping(path="/authentication-status")
-    public ResponseEntity<String> authStatus () { return new ResponseEntity<>(HttpStatus.OK); }
+    public ResponseEntity<String> authStatus () { return new ResponseEntity<>("authentication ok", HttpStatus.OK); }
 
     // dump logout
     @GetMapping(path="logout")
