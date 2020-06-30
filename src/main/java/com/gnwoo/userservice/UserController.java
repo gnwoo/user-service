@@ -4,7 +4,6 @@ import com.gnwoo.userservice.data.dto.UserDTO;
 import com.gnwoo.userservice.data.repo.PasscodeRepo;
 import com.gnwoo.userservice.data.repo.UserRepo;
 import com.gnwoo.userservice.data.table.User;
-import com.gnwoo.userservice.util.JWTUtil;
 import com.gnwoo.userservice.requestTemplate.ChangePasswordRequest;
 import com.gnwoo.userservice.requestTemplate.LoginRequest;
 import com.gnwoo.userservice.requestTemplate.SignUpRequest;
@@ -32,13 +31,6 @@ public class UserController {
     private PasscodeRepo passcodeRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JWTUtil jwtUtil;
-
-    @GetMapping(path="/health")
-    public ResponseEntity<String> test () {
-        return ResponseEntity.ok().body("health ok");
-    }
 
     @PostMapping(path="/sign-up")
     public ResponseEntity<String> signUp (@RequestBody SignUpRequest req) {
@@ -72,21 +64,8 @@ public class UserController {
         User user = relations.get(0);
 
         // valid login: username and password combination matched
-        if(passwordEncoder.matches(req.getPassword(), user.getHashedPassword()))
-        {
-            // construct a JWT token
-            String JWT_token = jwtUtil.consturctJWT(user.getUuid());
-
-            // clean the hashed password
-            user.setHashedPassword("the password has been hashed and salted");
-
-            // response OK with JWT
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Set-Cookie", "JWT=" + JWT_token);
-            headers.add("Set-Cookie", "uuid=" + user.getUuid());
-//            headers.add("Set-Cookie", "HttpOnly");
-            return new ResponseEntity<>(new UserDTO(user), headers, HttpStatus.OK);
-//            return ResponseEntity.ok().headers(headers).body(auth);
+        if(passwordEncoder.matches(req.getPassword(), user.getHashedPassword())) {
+            return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
         }
         // otherwise, invalid login
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
