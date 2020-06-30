@@ -135,10 +135,14 @@ public class UserController {
     public ResponseEntity<String> authStatus () { return new ResponseEntity<>("authentication ok", HttpStatus.OK); }
 
     // dump logout
-    @GetMapping(path="logout")
+    @PostMapping(path="logout")
     public ResponseEntity<String> logout () { return new ResponseEntity<>(HttpStatus.OK); }
 
     // dump logout-everywhere
-    @GetMapping(path="logout-everywhere")
+    @PostMapping(path="logout-everywhere")
     public ResponseEntity<String> logoutEverywhere () { return new ResponseEntity<>(HttpStatus.OK); }
+
+    // dump session-info
+    @GetMapping(path="session-info")
+    public ResponseEntity<String> sessionInfo () { return new ResponseEntity<>(HttpStatus.OK); }
 }
