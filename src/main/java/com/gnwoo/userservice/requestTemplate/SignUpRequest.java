@@ -5,6 +5,7 @@ public class SignUpRequest {
     private String displayName;
     private String password;
     private String email;
+    private Boolean is2FA;
 
     public String getUsername() {
         return username;
@@ -36,5 +37,13 @@ public class SignUpRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean getIs2FA() {
+        return is2FA;
+    }
+
+    public void setIs2FA(boolean is2FA) {
+        this.is2FA = is2FA;
     }
 }

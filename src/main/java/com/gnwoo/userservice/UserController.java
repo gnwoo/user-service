@@ -40,21 +40,32 @@ public class UserController {
 
 
     @PostMapping(path="/sign-up")
-    public ResponseEntity<String> signUp (@RequestBody SignUpRequest req) {
+    public ResponseEntity<HashMap<String, String>> signUp (@RequestBody SignUpRequest req) {
+        HashMap<String, String> res = new HashMap<>();
+
         // check duplicates
         if(!userRepo.findByUsername(req.getUsername()).isEmpty())
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(res, HttpStatus.CONFLICT);
 
         // otherwise, new user
         // hash the password
         String hashed_password = passwordEncoder.encode(req.getPassword());
 
-        // save the user to the db
         User user = new User(req.getUsername(), req.getDisplayName(), req.getEmail(), hashed_password);
+        // if user enables 2FA, generate a 2FA secret key
+        if(req.getIs2FA())
+        {
+            final GoogleAuthenticatorKey key = gAuth.createCredentials();
+            user.setSecretKey2FA(key.getKey());
+            user.setIs2FA(true);
+            res.put("secretKey2FA", key.getKey());
+        }
+
+        // save the user to the db
         userRepo.save(user);
 
         // response true to user service
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @PostMapping(path="/login")
