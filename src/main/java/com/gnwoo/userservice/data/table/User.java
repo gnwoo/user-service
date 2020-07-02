@@ -16,6 +16,8 @@ public class User {
     private String hashed_password;
     @Column(nullable = false)
     private Boolean is2FA;
+    @Column(nullable = false)
+    private String secretKey2FA;
 
     public User() { }
 
@@ -25,6 +27,7 @@ public class User {
         this.email = email;
         this.hashed_password = hashed_password;
         this.is2FA = false;
+        this.secretKey2FA = "";
     }
 
     public Long getUuid() { return uuid; }
@@ -48,4 +51,8 @@ public class User {
     public Boolean getIs2FA() { return is2FA; }
 
     public void setIs2FA(boolean is2FA) { this.is2FA = is2FA; }
+
+    public String getSecretKey2FA() { return secretKey2FA; }
+
+    public void setSecretKey2FA(String secretKey2FA) { this.secretKey2FA = secretKey2FA; }
 }
