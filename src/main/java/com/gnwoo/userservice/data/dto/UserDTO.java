@@ -7,6 +7,7 @@ public class UserDTO {
     private String username;
     private String display_name;
     private String email;
+    private Boolean is2FA;
 
     public UserDTO() { }
 
@@ -15,6 +16,7 @@ public class UserDTO {
         this.username = user.getUsername();
         this.display_name = user.getDisplayName();
         this.email = user.getEmail();
+        this.is2FA = user.getIs2FA();
     }
 
     public Long getUuid() { return uuid; }
@@ -32,4 +34,8 @@ public class UserDTO {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
+
+    public Boolean getIs2FA() { return is2FA; }
+
+    public void setIs2FA(boolean is2FA) { this.is2FA = is2FA; }
 }

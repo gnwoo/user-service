@@ -15,9 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.header.Header;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -65,7 +68,9 @@ public class UserController {
 
         // valid login: username and password combination matched
         if(passwordEncoder.matches(req.getPassword(), user.getHashedPassword())) {
-            return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("uuid", user.getUuid().toString());
+            return new ResponseEntity<>(new UserDTO(user), headers, HttpStatus.OK);
         }
         // otherwise, invalid login
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -128,6 +133,23 @@ public class UserController {
         // invalid passcode
         else
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @PostMapping(path="change-2FA-status")
+    public ResponseEntity<HashMap<String, Boolean>> change2FAStatus (@RequestHeader("uuid") String uuid) {
+        // get uuid from session
+        List<User> relations = userRepo.findByUuid(Long.parseLong(uuid));
+
+        // update 2FA status
+        User user = relations.get(0);
+        user.setIs2FA(!user.getIs2FA());
+        userRepo.save(user);
+
+        HashMap<String, Boolean> res = new HashMap<>();
+        res.put("new2FAStatus", user.getIs2FA());
+
+        // return
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     // dump auth-status

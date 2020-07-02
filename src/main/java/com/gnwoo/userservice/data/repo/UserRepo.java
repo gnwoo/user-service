@@ -9,6 +9,8 @@ import java.util.List;
 public interface UserRepo extends CrudRepository<User, String>{
     List<User> findByUsername(String username);
 
+    List<User> findByUuid(Long uuid);
+
 //    @Query(value = "SELECT hashed_password FROM auth WHERE uuid=?1", nativeQuery = true)
 //    List<String> findHashedPassword(Long uuid);
 //
