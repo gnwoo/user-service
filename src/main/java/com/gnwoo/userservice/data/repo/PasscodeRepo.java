@@ -34,4 +34,8 @@ public class PasscodeRepo {
         return redisTemplate.opsForValue().get(uuid);
     }
 
+    public void deleteByUuid(Long uuid) {
+        redisTemplate.delete(uuid);
+    }
+
 }

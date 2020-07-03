@@ -159,6 +159,9 @@ public class UserController {
             user.setHashedPassword(new_hashed_password);
             userRepo.save(user);
 
+            // invalidate passcode
+            passcodeRepo.deleteByUuid(uuid);
+
             HttpHeaders headers = new HttpHeaders();
             headers.add("Set-Cookie", "uuid=" + uuid);
             return new ResponseEntity<>("change password ok", headers, HttpStatus.OK);
