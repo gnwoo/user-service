@@ -2,19 +2,19 @@ package com.gnwoo.userservice.data.dto;
 
 import com.gnwoo.userservice.data.table.User;
 
-public class UserDTO {
+public class UserInfoDTO {
     private Long uuid;
     private String username;
-    private String display_name;
+    private String displayName;
     private String email;
     private Boolean is2FA;
 
-    public UserDTO() { }
+    public UserInfoDTO() { }
 
-    public UserDTO(User user) {
+    public UserInfoDTO(User user) {
         this.uuid = user.getUuid();
         this.username = user.getUsername();
-        this.display_name = user.getDisplayName();
+        this.displayName = user.getDisplayName();
         this.email = user.getEmail();
         this.is2FA = user.getIs2FA();
     }
@@ -27,9 +27,9 @@ public class UserDTO {
 
     public void setUsername(String username) { this.username = username; }
 
-    public String getDisplayName() { return display_name; }
+    public String getDisplayName() { return displayName; }
 
-    public void setDisplayName(String display_name) { this.display_name = display_name; }
+    public void setDisplayName(String display_name) { this.displayName = display_name; }
 
     public String getEmail() { return email; }
 
