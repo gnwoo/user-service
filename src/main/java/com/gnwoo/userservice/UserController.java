@@ -6,10 +6,7 @@ import com.gnwoo.userservice.exception.DuplicateUsernameException;
 import com.gnwoo.userservice.exception.NotFoundException;
 import com.gnwoo.userservice.exception.Require2FAException;
 import com.gnwoo.userservice.exception.UnauthorizedException;
-import com.gnwoo.userservice.requestTemplate.ChangePasswordRequest;
-import com.gnwoo.userservice.requestTemplate.LoginRequest;
-import com.gnwoo.userservice.requestTemplate.SignUpRequest;
-import com.gnwoo.userservice.requestTemplate.VerifyByEmailAddressRequest;
+import com.gnwoo.userservice.requestTemplate.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,14 +21,24 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(path="/sign-up")
-    public ResponseEntity<SecretKey2FADTO> signUp (@RequestBody SignUpRequest req) {
+    public ResponseEntity<String> signUp (@RequestBody SignUpRequest req) {
         try {
-            String secretKey2FA = userService.handleSignUp(req.getUsername(), req.getPassword(),
-                    req.getDisplayName(), req.getEmail(), req.getIs2FA());
-            SecretKey2FADTO secretKey2FADTO = new SecretKey2FADTO(secretKey2FA);
-            return new ResponseEntity<>(secretKey2FADTO, HttpStatus.OK);
+            userService.handleSignUp(req.getUsername(), req.getPassword(), req.getDisplayName(), req.getEmail(),
+                    req.getIs2FA());
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (DuplicateUsernameException duplicateUsernameException) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+    }
+
+    @PostMapping(path="/sign-up-email-verification")
+    public ResponseEntity<SecretKey2FADTO> signUpEmailVerification (@RequestBody SignUpEmailVerificationRequest req) {
+        try {
+            String secretKey2FA = userService.handleSignUpEmailVerification(req.getEmail(), req.getPasscode());
+            SecretKey2FADTO secretKey2FADTO = new SecretKey2FADTO(secretKey2FA);
+            return new ResponseEntity<>(secretKey2FADTO, HttpStatus.OK);
+        } catch (UnauthorizedException unauthorizedException) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 

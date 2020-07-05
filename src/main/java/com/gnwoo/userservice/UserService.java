@@ -2,6 +2,7 @@ package com.gnwoo.userservice;
 
 import com.gnwoo.userservice.data.dto.UserInfoDTO;
 import com.gnwoo.userservice.data.repo.PasscodeRepo;
+import com.gnwoo.userservice.data.repo.TempUserRepo;
 import com.gnwoo.userservice.data.repo.UserRepo;
 import com.gnwoo.userservice.data.table.User;
 import com.gnwoo.userservice.exception.DuplicateUsernameException;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class UserService {
@@ -26,6 +28,8 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
     @Autowired
+    private TempUserRepo tempUserRepo;
+    @Autowired
     private PasscodeRepo passcodeRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -33,11 +37,8 @@ public class UserService {
 
     public UserService() {}
 
-    public String handleSignUp(String username, String password, String display_name,
-                                                                 String email, boolean is2FA)
+    public void handleSignUp(String username, String password, String display_name, String email, boolean is2FA)
             throws DuplicateUsernameException {
-        String secretKey2FA = null;
-
         // check username duplicates
         if(!userRepo.findByUsername(username).isEmpty())
             throw new DuplicateUsernameException("username has been already registered");
@@ -45,9 +46,29 @@ public class UserService {
         // otherwise, new user, hash the password
         String hashed_password = passwordEncoder.encode(password);
 
-        User user = new User(username, display_name, email, hashed_password);
+        // generate an email verification passcode
+        SecureRandom secureRandom = new SecureRandom();
+        String passcode = String.format("%06d", secureRandom.nextInt(1000000));
+        System.out.println("email verification passcode: " + passcode);
+
+        // save user to temp user redis
+        tempUserRepo.saveTempUser(username, hashed_password, display_name, email, is2FA, passcode);
+
+        // TODO: RPC all to email service
+    }
+
+    public String handleSignUpEmailVerification(String email, String passcode) throws UnauthorizedException {
+        String secretKey2FA = null;
+        Map<Object, Object> tempUser = tempUserRepo.findTempUserByEmail(email);
+
+        // invalid verification: the email and verification passcode does not match
+        if(tempUser == null || !tempUser.get("passcode").equals(passcode))
+            throw new UnauthorizedException("invalid email verification passcode");
+
+        User user = new User(tempUser.get("username").toString(), tempUser.get("display_name").toString(), email,
+                tempUser.get("hashed_password").toString());
         // if user enables 2FA, generate a 2FA secret key
-        if(is2FA)
+        if((boolean)tempUser.get("is2FA"))
         {
             final GoogleAuthenticatorKey key = gAuth.createCredentials();
             user.setSecretKey2FA(key.getKey());
@@ -57,6 +78,9 @@ public class UserService {
 
         // save the user to the db
         userRepo.save(user);
+
+        // delete temp user
+        tempUserRepo.deleteTempUserByEmail(email);
 
         return secretKey2FA;
     }

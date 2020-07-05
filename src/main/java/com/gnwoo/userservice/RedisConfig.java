@@ -42,6 +42,15 @@ public class RedisConfig {
 
     }
 
+    @Bean(name="RedisStringTemplate")
+    public RedisTemplate<String, String> redisStringTemplate() {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(factory);
+        template.setEnableTransactionSupport(true);
+        template.afterPropertiesSet();
+        return template;
+    }
+
     @PreDestroy
     public void cleanRedis() {
         factory.getConnection()
