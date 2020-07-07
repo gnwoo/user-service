@@ -8,6 +8,8 @@ import com.gnwoo.userservice.exception.Require2FAException;
 import com.gnwoo.userservice.exception.UnauthorizedException;
 import com.gnwoo.userservice.requestTemplate.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ public class UserController {
             userService.handleSignUp(req.getUsername(), req.getPassword(), req.getDisplayName(), req.getEmail(),
                     req.getIs2FA());
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NullPointerException | IllegalArgumentException nullPointerException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (DuplicateUsernameException duplicateUsernameException) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -37,6 +41,8 @@ public class UserController {
             String secretKey2FA = userService.handleSignUpEmailVerification(req.getEmail(), req.getPasscode());
             SecretKey2FADTO secretKey2FADTO = new SecretKey2FADTO(secretKey2FA);
             return new ResponseEntity<>(secretKey2FADTO, HttpStatus.OK);
+        } catch (NullPointerException | IllegalArgumentException nullPointerException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (UnauthorizedException unauthorizedException) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -50,6 +56,8 @@ public class UserController {
             HttpHeaders headers = new HttpHeaders();
             headers.add("uuid", userInfoDTO.getUuid().toString());
             return new ResponseEntity<>(userInfoDTO, headers, HttpStatus.OK);
+        } catch (NullPointerException nullPointerException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (UnauthorizedException unauthorizedException) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } catch (Require2FAException require2FAException) {
@@ -62,6 +70,8 @@ public class UserController {
         try {
             userService.verifyByEmailAddress(req.getUsername());
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NullPointerException nullPointerException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (NotFoundException notFoundException) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -74,6 +84,8 @@ public class UserController {
             HttpHeaders headers = new HttpHeaders();
             headers.add("uuid", uuid.toString());
             return new ResponseEntity<>(headers, HttpStatus.OK);
+        } catch (NullPointerException | IllegalArgumentException nullPointerException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (UnauthorizedException unauthorizedException) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -81,7 +93,6 @@ public class UserController {
 
     @PostMapping(path="/change-2FA-status")
     public ResponseEntity<SecretKey2FADTO> change2FAStatus (@RequestHeader("uuid") String uuid) {
-
         String secretKey2FA = userService.change2FAStatus(Long.parseLong(uuid));
         SecretKey2FADTO secretKey2FADTO = new SecretKey2FADTO(secretKey2FA);
         return new ResponseEntity<>(secretKey2FADTO, HttpStatus.OK);
@@ -91,6 +102,11 @@ public class UserController {
     public ResponseEntity<UserInfoDTO> userInfo (@RequestHeader("uuid") String uuid) {
         UserInfoDTO userInfoDTO = userService.getUserInfo(Long.parseLong(uuid));
         return new ResponseEntity<>(userInfoDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(path="/health")
+    public ResponseEntity<String> userInfo () {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // dump auth-status
