@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class UserServer {
     private Server server;
-    private static final int port = 8081;
+    private static final int port = 8091;
 
     @Autowired
     private UserServiceImpl userService;
